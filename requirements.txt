@@ -1,0 +1,8 @@
+duckdb>=1.1
+dbt-core>=1.10,<2
+dbt-duckdb>=1.9
+mplsoccer>=1.4
+networkx>=3.2
+matplotlib>=3.8
+pandas>=2.2
+adjustText>=1.0

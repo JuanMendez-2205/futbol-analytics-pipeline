@@ -1,0 +1,43 @@
+version: 2
+
+models:
+  - name: stg_matches
+    columns:
+      - name: match_id
+        tests: [unique, not_null]
+      - name: home_team
+        tests: [not_null]
+
+  - name: stg_events
+    columns:
+      - name: event_id
+        tests: [unique, not_null]
+      - name: match_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_matches')
+                field: match_id
+
+  - name: stg_shots
+    columns:
+      - name: event_id
+        tests: [unique, not_null]
+      - name: xg
+        description: Expected goals del modelo de StatsBomb (0 a 1)
+        tests: [not_null]
+
+  - name: stg_passes
+    columns:
+      - name: event_id
+        tests: [unique, not_null]
+
+  - name: stg_players
+    description: Un jugador por equipo, con su apodo para mostrar en gráficos.
+    tests:
+      - unique_combination:
+          arguments:
+            columns: [team, player]
+    columns:
+      - name: display_name
+        tests: [not_null]

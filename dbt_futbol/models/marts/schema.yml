@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: fct_shots
+    description: Un remate por fila con contexto del partido y rival.
+    columns:
+      - name: event_id
+        tests: [unique, not_null]
+
+  - name: player_finishing
+    description: Goles vs. xG por jugador (sin penales).
+    tests:
+      - unique_combination:
+          arguments:
+            columns: [player, team]
+
+  - name: team_match_stats
+    description: Una fila por equipo y partido.
+    columns:
+      - name: pass_accuracy_pct
+        tests: [not_null]
+
+  - name: pass_network_edges
+    columns:
+      - name: passes
+        tests: [not_null]

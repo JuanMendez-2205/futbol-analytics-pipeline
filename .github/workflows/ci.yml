@@ -1,0 +1,30 @@
+name: pipeline
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "0 6 * * 1"   # todos los lunes: verifica que la fuente siga respondiendo igual
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Extract + Load (Copa América 2024)
+        run: python ingest/extract_load.py
+      - name: Transform + tests (dbt build)
+        run: cd dbt_futbol && dbt build --profiles-dir .
+      - name: Visualizaciones
+        run: |
+          python viz/shotmap.py --team Argentina
+          python viz/pass_network.py --match 3943077 --team Argentina
+      - uses: actions/upload-artifact@v4
+        with:
+          name: graficos
+          path: docs/img/
