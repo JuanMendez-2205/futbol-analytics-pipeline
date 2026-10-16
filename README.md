@@ -1,6 +1,6 @@
 # ⚽ futbol-analytics-pipeline
 
-Pipeline **ELT** de datos de fútbol: baja eventos de partidos de [StatsBomb Open Data](https://github.com/statsbomb/open-data), los carga crudos en **DuckDB**, los modela con **dbt** (staging → marts, con tests de calidad) y genera visualizaciones de análisis táctico. Corre entero en **GitHub Actions** en cada push.
+Pipeline **ELT** de datos de fútbol: baja eventos de partidos de [StatsBomb Open Data](https://github.com/statsbomb/open-data), los carga crudos en **DuckDB**, los modela con **dbt** (staging → marts, con tests de calidad) y genera visualizaciones de análisis táctico. Incluye un workflow de **GitHub Actions** que corre el pipeline completo (ingesta + `dbt build` + gráficos).
 
 *ELT pipeline for football event data: StatsBomb → DuckDB → dbt (tested models) → mplsoccer/networkx visualizations, with CI on GitHub Actions.*
 
